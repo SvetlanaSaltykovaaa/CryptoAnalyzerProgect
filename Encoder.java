@@ -19,15 +19,24 @@ public class Encoder {
         for (int i = 0; i < builder.length(); i++) {
             char element = builder.charAt(i);
             if (element >= 'a' && element <= 'z') {
-                int indexOfAlphabet = dic.ALPHABET.indexOf(element);
-                Collections.rotate(dic.ALPHABET,key);
-                builder.setCharAt(i, dic.ALPHABET.get(indexOfAlphabet));
+                int indexOfAlphabet = dic.ENGLISH_ALPHABET.indexOf(element);
+                Collections.rotate(dic.ENGLISH_ALPHABET, key);
+                builder.setCharAt(i, dic.ENGLISH_ALPHABET.get(indexOfAlphabet));
 
             } else if (element >= 'A' && element <= 'Z') {
-                int indexOfUpperAlphabet = dic.ALPHABETUPPERCASE.indexOf(element);
-                Collections.rotate(dic.ALPHABETUPPERCASE,key);
-                builder.setCharAt(i, dic.ALPHABETUPPERCASE.get(indexOfUpperAlphabet));
+                int indexOfUpperAlphabet = dic.ENGLISH_ALPHABETUPPERCASE.indexOf(element);
+                Collections.rotate(dic.ENGLISH_ALPHABETUPPERCASE, key);
+                builder.setCharAt(i, dic.ENGLISH_ALPHABETUPPERCASE.get(indexOfUpperAlphabet));
+            } else if (element >= 'а' && element <= 'я') {
+                int indexOfAlphabet = dic.CIRILIC_ALPHABET.indexOf(element);
+                Collections.rotate(dic.CIRILIC_ALPHABET, key);
+                builder.setCharAt(i, dic.CIRILIC_ALPHABET.get(indexOfAlphabet));
+            } else if (element >= 'А' && element <= 'Я') {
+                int indexOfAlphabet = dic.CIRILIC_ALHABETUPPERCASE.indexOf(element);
+                Collections.rotate(dic.CIRILIC_ALHABETUPPERCASE, key);
+                builder.setCharAt(i, dic.CIRILIC_ALHABETUPPERCASE.get(indexOfAlphabet));
             }
+
         }
         return builder.toString();
     }
