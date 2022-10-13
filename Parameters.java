@@ -20,12 +20,10 @@ public class Parameters {
     public static Path validatePath(String filePath) {
 
         Path path = Path.of(filePath);
-        if (!Files.exists(path) || !Files.isDirectory(path)) {
+        if (!Files.exists(path) || Files.isDirectory(path) ) {
             throw new RuntimeException("No file founded!");
         }
-        if (!path.endsWith(".txt")) {
-            throw new RuntimeException("Unacceptable file format!");
-        }
+
         return path;
     }
 

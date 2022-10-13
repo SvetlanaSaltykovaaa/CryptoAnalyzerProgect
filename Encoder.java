@@ -16,7 +16,6 @@ public class Encoder {
     public String encodeText(String text, int key) {
         StringBuilder builder = new StringBuilder(text);
 
-
         for (int i = 0; i < builder.length(); i++) {
             char element = builder.charAt(i);
             if (element >= 'a' && element <= 'z') {
