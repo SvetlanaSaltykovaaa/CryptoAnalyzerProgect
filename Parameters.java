@@ -23,7 +23,9 @@ public class Parameters {
         if (!Files.exists(path) || Files.isDirectory(path) ) {
             throw new RuntimeException("No file founded!");
         }
-
+        if (!path.endsWith("txt")) {
+            throw new RuntimeException("Unacceptable file format!");
+        }
         return path;
     }
 
