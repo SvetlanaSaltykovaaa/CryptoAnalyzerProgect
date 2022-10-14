@@ -1,6 +1,9 @@
 package javarush.project;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,26 +20,31 @@ public class Encoder {
         StringBuilder builder = new StringBuilder(text);
 
         for (int i = 0; i < builder.length(); i++) {
-            char element = builder.charAt(i);
-            if (element >= 'a' && element <= 'z') {
-                int indexOfAlphabet = dic.ENGLISH_ALPHABET.indexOf(element);
-                Collections.rotate(dic.ENGLISH_ALPHABET, key);
+            char charElement = builder.charAt(i);
+
+            boolean isSmallEnglishCharacter = charElement >= 'a' && charElement <= 'z';
+            boolean isBigEnglishCharacter = charElement >= 'A' && charElement <= 'Z';
+            boolean isSmallCyrillicCharacter = charElement >= 'а' && charElement <= 'я';
+            boolean isBigCyrillicCharacter = charElement >= 'А' && charElement <= 'Я';
+
+
+            if (isSmallEnglishCharacter) {
+                int indexOfAlphabet = dic.ENGLISH_ALPHABET.indexOf(charElement);
+               Collections.rotate(dic.ENGLISH_ALPHABET,key);
                 builder.setCharAt(i, dic.ENGLISH_ALPHABET.get(indexOfAlphabet));
-
-            } else if (element >= 'A' && element <= 'Z') {
-                int indexOfUpperAlphabet = dic.ENGLISH_ALPHABETUPPERCASE.indexOf(element);
-                Collections.rotate(dic.ENGLISH_ALPHABETUPPERCASE, key);
+            } else if (isBigEnglishCharacter) {
+                int indexOfUpperAlphabet = dic.ENGLISH_ALPHABETUPPERCASE.indexOf(charElement);
+                Collections.rotate(dic.ENGLISH_ALPHABETUPPERCASE,key);
                 builder.setCharAt(i, dic.ENGLISH_ALPHABETUPPERCASE.get(indexOfUpperAlphabet));
-            } else if (element >= 'а' && element <= 'я') {
-                int indexOfAlphabet = dic.CIRILIC_ALPHABET.indexOf(element);
-                Collections.rotate(dic.CIRILIC_ALPHABET, key);
-                builder.setCharAt(i, dic.CIRILIC_ALPHABET.get(indexOfAlphabet));
-            } else if (element >= 'А' && element <= 'Я') {
-                int indexOfAlphabet = dic.CIRILIC_ALHABETUPPERCASE.indexOf(element);
-                Collections.rotate(dic.CIRILIC_ALHABETUPPERCASE, key);
-                builder.setCharAt(i, dic.CIRILIC_ALHABETUPPERCASE.get(indexOfAlphabet));
+            } else if (isSmallCyrillicCharacter) {
+                int indexOfAlphabet = dic.CYRILLIC_ALPHABET.indexOf(charElement);
+               Collections.rotate(dic.ENGLISH_ALPHABET,key);
+                builder.setCharAt(i, dic.CYRILLIC_ALPHABET.get(indexOfAlphabet));
+            } else if (isBigCyrillicCharacter) {
+                int indexOfAlphabet = dic.CYRILLIC_ALHABETUPPERCASE.indexOf(charElement);
+              Collections.rotate(dic.CYRILLIC_ALHABETUPPERCASE,key);
+                builder.setCharAt(i, dic.CYRILLIC_ALHABETUPPERCASE.get(indexOfAlphabet));
             }
-
         }
         return builder.toString();
     }
@@ -49,6 +57,14 @@ public class Encoder {
 
         return path;
 
+    }
+
+    public void writeToFile(Path filePath,String decodedText){
+        try {
+            Files.writeString(getNewFileNameForEncoded(filePath), decodedText, StandardOpenOption.CREATE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 
