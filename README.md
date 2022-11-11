@@ -36,5 +36,4 @@ java -jar myApp.jar bruteForce folder/textFile1.txt folder/textExample.txt   // 
 ДОПОЛНИТЕЛЬНО 2
 добавить поддержку кодирования текста на русском языке
 
-ДОПОЛНИТЛЕЬНО 3 
-GUI (Swing, JavaFX)
+
